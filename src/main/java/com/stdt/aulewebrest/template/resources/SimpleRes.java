@@ -14,6 +14,13 @@ import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 /**
  *
@@ -40,11 +47,24 @@ public class SimpleRes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPOG(
             @Context UriInfo uriinfo,
-            @QueryParam("p") String parametro) throws RESTWebApplicationException {
+            @QueryParam("p") String parametro) throws RESTWebApplicationException, SQLException, ClassNotFoundException {
 
         List<String> l = new ArrayList();
-        l.add("Poggers");
-        l.add("poggers in chat");
+
+        String sqlSelectAllPersons = "SELECT * FROM evento";
+        String connectionUrl = "jdbc:mysql://localhost:3306/progettoDB";
+        
+
+        try ( Connection conn = DriverManager.getConnection(connectionUrl, "root", "admin");  PreparedStatement ps = conn.prepareStatement(sqlSelectAllPersons);  ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                l.add("nome: " + rs.getString("nome"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return Response.ok(l).build();
     }
