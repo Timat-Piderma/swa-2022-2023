@@ -20,7 +20,11 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>       
-        <!-- Dipendenze per un'applicazione che usa JAX-RS (non Jakarta) -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
