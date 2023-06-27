@@ -12,6 +12,7 @@ import com.stdt.aulewebrest.framework.security.AuthenticationRes;
 import com.stdt.aulewebrest.template.exceptions.AppExceptionMapper;
 import com.stdt.aulewebrest.framework.security.CORSFilter;
 import com.stdt.aulewebrest.template.exceptions.JacksonExceptionMapper;
+import com.stdt.aulewebrest.template.resources.AttrezzatureRes;
 import com.stdt.aulewebrest.template.resources.SimpleRes;
 
 /**
@@ -29,6 +30,7 @@ public class RESTApp extends Application {
         //con l'annotazione Path) che vogliamo pubblicare
         c.add(SimpleRes.class);
         c.add(AuthenticationRes.class);
+        c.add(AttrezzatureRes.class);
 
         //aggiungiamo il provider Jackson per poter
         //usare i suoi servizi di serializzazione e 
