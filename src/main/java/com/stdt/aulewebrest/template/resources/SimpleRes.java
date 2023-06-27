@@ -19,7 +19,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
@@ -52,18 +55,23 @@ public class SimpleRes {
         List<String> l = new ArrayList();
 
         String sqlSelectAllPersons = "SELECT * FROM evento";
-        String connectionUrl = "jdbc:mysql://localhost:3306/progettoDB";
-        
 
-        try ( Connection conn = DriverManager.getConnection(connectionUrl, "root", "admin");  PreparedStatement ps = conn.prepareStatement(sqlSelectAllPersons);  ResultSet rs = ps.executeQuery()) {
+        InitialContext ctx;
+        try {
+            ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
+            Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sqlSelectAllPersons);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 l.add("nome: " + rs.getString("nome"));
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (NamingException ex) {
+            Logger.getLogger(SimpleRes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return Response.ok(l).build();

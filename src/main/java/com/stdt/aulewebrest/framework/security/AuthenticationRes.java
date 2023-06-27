@@ -16,10 +16,6 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import javax.ws.rs.core.UriInfo;
 
-/**
- *
- * @author didattica
- */
 @Path("auth")
 public class AuthenticationRes {
 
