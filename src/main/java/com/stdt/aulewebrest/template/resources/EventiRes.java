@@ -123,7 +123,7 @@ public class EventiRes {
 
         return Response.ok(result).build();
     }
-    
+
     @GET
     @Path("{eventiAttuali}")
     @Produces("application/json")
@@ -132,62 +132,67 @@ public class EventiRes {
             @Context SecurityContext sec,
             @Context ContainerRequestContext req)
             throws RESTWebApplicationException, SQLException, ClassNotFoundException {
-        
+
         List<String> eventi = new ArrayList();
-        
+
         InitialContext ctx;
         try {
             ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
             Connection conn = ds.getConnection();
-            
+
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM evento WHERE evento.oraInizio >= CURRENT_TIMESTAMP AND evento.oraInizio <= CURRENT_TIMESTAMP + INTERVAL 3 HOUR AND evento.giorno= curdate()");
-            
+
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 eventi.add(rs.getString("nome"));
-                
+
             }
-            
+
         } catch (NamingException ex) {
             Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return Response.ok(eventi).build();
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response addItem(
             @Context ContainerRequestContext req,
             @Context UriInfo uriinfo,
-            @FormParam("data") Date data,
-            @FormParam("oraInizio") Time oraInizio,
-            @FormParam("oraFine") Time oraFine,
+            @FormParam("giorno") String giorno,
+            @FormParam("oraInizio") String oraInizio,
+            @FormParam("oraFine") String oraFine,
             @FormParam("descrizione") String descrizione,
             @FormParam("nome") String nome,
-            @FormParam("tipo") String tipo,
+            @FormParam("tipologia") String tipologia,
             @FormParam("idaula") String idaula,
-            @FormParam("idresponsabile") String idresponsabile
+            @FormParam("idresponsabile") String idresponsabile,
+            @FormParam("idcorso") String idcorso
     ) throws SQLException, NamingException {
 
         InitialContext ctx;
         ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
         Connection conn = ds.getConnection();
-        
-        
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO evento (data,oraInizio,oraFine,descrizione,nome,tipo,aulaID,responsabileID) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-        ps.setDate(1, (java.sql.Date) data);
-        ps.setTime(2, oraInizio);
-        ps.setTime(3, oraFine);
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO evento (giorno,oraInizio,oraFine,descrizione,nome,tipologia,aulaID,responsabileID,corsoID) VALUES(?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, giorno);
+        ps.setString(2, oraInizio);
+        ps.setString(3, oraFine);
         ps.setString(4, descrizione);
         ps.setString(5, nome);
-        ps.setString(6, tipo);
+        ps.setString(6, tipologia);
         ps.setString(7, idaula);
         ps.setString(8, idresponsabile);
+
+        if (idcorso.isEmpty()) {
+            ps.setString(9, null);
+        } else {
+            ps.setString(9, idcorso);
+        }
 
         if (ps.executeUpdate() == 1) {
 
@@ -195,8 +200,6 @@ public class EventiRes {
             keys.next();
 
             URI uri = uriinfo.getBaseUriBuilder()
-                    .path(EventoRes.class)
-                    .path(EventoRes.class, "getItem")
                     .build(keys.getInt(1));
             return Response.created(uri).build();
         } else {
@@ -225,8 +228,6 @@ public class EventiRes {
         ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
         Connection conn = ds.getConnection();
-        
-        
 
         PreparedStatement ps = conn.prepareStatement("Select * from Evento where ID = ?");
         ps.setDate(1, (java.sql.Date) data);
