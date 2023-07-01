@@ -46,7 +46,7 @@ public class EventoDeserializer extends JsonDeserializer<Evento> {
             e.setAula(jp.getCodec().treeToValue(node.get("aula"), Aula.class));
         }
 
-        if (node.has("tipo")) {
+        if (node.has("tipologia")) {
             e.setTipologia(jp.getCodec().treeToValue(node.get("tipo"), Tipologia.class));
         }
 

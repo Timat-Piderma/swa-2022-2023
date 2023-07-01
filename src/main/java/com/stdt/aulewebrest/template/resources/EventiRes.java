@@ -118,22 +118,23 @@ public class EventiRes {
             }
 
         } catch (NamingException ex) {
-            Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventoRes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return Response.ok(result).build();
     }
 
     @GET
-    @Path("{eventiAttuali}")
-    @Produces("application/json")
+    @Path("{idgruppo: [0-9]+}/threehours")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEventiAttuali(
             @Context UriInfo uriinfo,
+            @PathParam("idgruppo") int idgruppo,
             @Context SecurityContext sec,
             @Context ContainerRequestContext req)
             throws RESTWebApplicationException, SQLException, ClassNotFoundException {
 
-        List<String> eventi = new ArrayList();
+        List<Evento> result = new ArrayList();
 
         InitialContext ctx;
         try {
@@ -141,20 +142,32 @@ public class EventiRes {
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
             Connection conn = ds.getConnection();
 
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM evento WHERE evento.oraInizio >= CURRENT_TIMESTAMP AND evento.oraInizio <= CURRENT_TIMESTAMP + INTERVAL 3 HOUR AND evento.giorno= curdate()");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM evento JOIN tiene on evento.ID = tiene.eventoID JOIN aula on aula.ID = tiene.aulaID WHERE evento.oraInizio >= CURRENT_TIMESTAMP AND evento.oraInizio <= CURRENT_TIMESTAMP + INTERVAL 3 HOUR AND aula.gruppoID=? AND evento.giorno= curdate()");
+
+            ps.setInt(1, idgruppo);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                eventi.add(rs.getString("nome"));
+
+                Evento evento = new Evento();
+
+                evento.setData(LocalDate.parse(rs.getString("giorno")));
+                evento.setOraInizio(LocalTime.parse(rs.getString("oraInizio")));
+                evento.setOraFine(LocalTime.parse(rs.getString("oraFine")));
+                evento.setNome(rs.getString("nome"));
+                evento.setDescrizione(rs.getString("descrizione"));
+                evento.setTipologia(Tipologia.valueOf(rs.getString("tipologia")));
+
+                result.add(evento);
 
             }
 
         } catch (NamingException ex) {
-            Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventoRes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return Response.ok(eventi).build();
+        return Response.ok(result).build();
     }
 
     @POST
@@ -201,6 +214,13 @@ public class EventiRes {
 
             URI uri = uriinfo.getBaseUriBuilder()
                     .build(keys.getInt(1));
+
+            //Aggiunta nella tabella relazione tiene
+            PreparedStatement pstiene = conn.prepareStatement("INSERT INTO tiene (aulaID, eventoID) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
+            pstiene.setString(1, idaula);
+            pstiene.setString(2, keys.getString(1));
+            pstiene.executeUpdate();
+
             return Response.created(uri).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
