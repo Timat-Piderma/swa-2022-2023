@@ -1,17 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.stdt.aulewebrest.template.resources;
 
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
+import com.stdt.aulewebrest.template.model.Evento;
 import com.stdt.aulewebrest.template.model.Tipologia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -28,50 +25,48 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-/**
- *
- * @author aless
- */
 @Path("eventi")
 public class EventiRes {
-  @GET
+
+    @GET
     @Path("{idevento: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInfoEvento(
+    public EventoRes getInfoEvento(
             @PathParam("idevento") int idevento,
             @Context UriInfo uriinfo,
             //iniettiamo elementi di contesto utili per la verifica d'accesso
             @Context SecurityContext sec,
             @Context ContainerRequestContext req)
             throws RESTWebApplicationException, SQLException, ClassNotFoundException {
-        
-         List<String> l = new ArrayList();
-        
+
+        Evento evento = new Evento();
+
         InitialContext ctx;
         try {
             ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
             Connection conn = ds.getConnection();
-            
+
             PreparedStatement ps = conn.prepareStatement("Select * from Evento where ID = ?");
             ps.setInt(1, idevento);
-            
+
             ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                l.add(rs.getDate("giorno").toString());
-                l.add(rs.getTime("oraInizio").toString());
-                l.add(rs.getTime("oraFine").toString());
-                l.add(rs.getString("nome"));
-                l.add(rs.getString("descrizione"));
-                
-                
-                }
-            
+
+            rs.next();
+
+            evento.setNome(rs.getString("nome"));
+            evento.setData(LocalDate.parse(rs.getString("giorno")));
+            evento.setOraInizio(LocalTime.parse(rs.getString("oraInizio")));
+            evento.setOraFine(LocalTime.parse(rs.getString("oraFine")));
+            evento.setDescrizione(rs.getString("descrizione"));
+            evento.setTipologia(Tipologia.valueOf(rs.getString("tipologia")));
+
+            System.out.println(evento.getNome());
+
         } catch (NamingException ex) {
-            Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventiRes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return Response.ok(l).build();
+        return new EventoRes(evento);
     }
-    
+
 }

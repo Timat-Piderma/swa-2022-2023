@@ -2,19 +2,30 @@ package com.stdt.aulewebrest.template.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Evento {
-    
+
     private LocalDate data;
     private LocalTime oraInizio;
     private LocalTime oraFine;
     private String descrizione;
     private String nome;
-    private Integer id;
     private Tipologia tipo;
     private List<Aula> aule;
     private Responsabile responsabile;
+
+    public Evento() {
+        data = null;
+        oraInizio = null;
+        oraFine = null;
+        descrizione = "";
+        nome = "";
+        tipo = null;
+        aule = new ArrayList<>();
+        responsabile = null;
+    }
 
     /**
      * @return the data
@@ -84,20 +95,6 @@ public class Evento {
      */
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**

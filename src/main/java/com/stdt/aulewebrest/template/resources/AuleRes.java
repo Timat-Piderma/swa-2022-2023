@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.stdt.aulewebrest.template.resources;
 
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
@@ -22,63 +18,48 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-/**
- *
- * @author aless
- */
 @Path("aule")
 public class AuleRes {
- @GET
+
+    @GET
     @Path("{idaula: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInfoAula(
+    public AulaRes getInfoAula(
             @PathParam("idaula") int idaula,
             @Context UriInfo uriinfo,
             //iniettiamo elementi di contesto utili per la verifica d'accesso
             @Context SecurityContext sec,
             @Context ContainerRequestContext req)
             throws RESTWebApplicationException, SQLException, ClassNotFoundException {
-        
-        Aula aula= new Aula();
-        
+
+        Aula aula = new Aula();
+
         InitialContext ctx;
         try {
             ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
             Connection conn = ds.getConnection();
-            
+
             PreparedStatement ps = conn.prepareStatement("Select * from Aula where ID = ?");
             ps.setInt(1, idaula);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                
-                String nome = rs.getString("nome");
-                int capienza = rs.getInt("capienza");
-                String emailResponsabile = rs.getString("emailResponsabile");
-                int numeroPreseRete = rs.getInt("numeroPreseRete");
-                String note = rs.getString("note");
-                int numeroElettriche = rs.getInt("numeroPreseElettriche");
-                
-                aula.setNome(nome);
-                aula.setCapienza(capienza);
-                aula.setEmailResponsabile(emailResponsabile);
-                aula.setNumeroPreseRete(numeroPreseRete);
-                aula.setNote(note);
-                aula.setNumeroPreseElettriche(numeroElettriche);
-                
-            }
-            
+
+            rs.next();
+
+            aula.setNome(rs.getString("nome"));
+            aula.setCapienza(rs.getInt("capienza"));
+            aula.setEmailResponsabile(rs.getString("emailResponsabile"));
+            aula.setNumeroPreseRete(rs.getInt("numeroPreseRete"));
+            aula.setNote(rs.getString("note"));
+            aula.setNumeroPreseElettriche(rs.getInt("numeroPreseElettriche"));
+
         } catch (NamingException ex) {
-            Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return Response.ok(aula).build();
+        return new AulaRes(aula);
     }
-    
 }

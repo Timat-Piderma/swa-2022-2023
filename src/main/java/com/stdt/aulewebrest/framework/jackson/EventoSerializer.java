@@ -18,7 +18,6 @@ public class EventoSerializer extends JsonSerializer<Evento> {
         jgen.writeStringField("oraFine", item.getOraFine().toString());
         jgen.writeStringField("descrizione", item.getDescrizione());
         jgen.writeStringField("nome", item.getNome());
-        jgen.writeNumberField("id", item.getId());
         jgen.writeObjectField("tipo", item.getTipologia());
         jgen.writeObjectField("aule", item.getAule());
         jgen.writeObjectField("responsabile", item.getResponsabile());

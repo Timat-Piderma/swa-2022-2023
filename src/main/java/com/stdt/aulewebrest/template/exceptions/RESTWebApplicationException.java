@@ -9,6 +9,10 @@ public class RESTWebApplicationException extends WebApplicationException {
         super(Response.serverError().build());
     }
 
+    public RESTWebApplicationException(Exception e) {
+        this(500, e.getMessage());
+    }
+
     public RESTWebApplicationException(String message) {
         super(Response.serverError()
                 .entity(message)
