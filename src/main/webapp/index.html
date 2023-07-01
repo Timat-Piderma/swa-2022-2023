@@ -99,7 +99,7 @@
 
             <tbody>
                 <tr>
-                    <td rowspan="1">/aule</td>
+                    <td rowspan="2">/aule</td>
                     <td>GET</td>
                     <td>idaula: [0-9]+</td>
                     <td></td>
@@ -107,7 +107,29 @@
                     <td><a data-rest-test data-rest-test-target href="rest/aule/1"><small>GET rest/aule/1</small></a></td>
                     <td  class="output">Informazioni di un aula</td>
                 </tr>
+                <tr>
+                    <td>POST</td>
+                    <td></td>
+                    <td>
 
+                        <form  method="post" action="rest/aule" enctype="application/x-www-form-urlencoded" >
+                            <input type="text" name="nome" placeholder="Nome">
+                            <input type="text" name="capienza" placeholder="Capienza">
+                            <input type="text" name="emailresponsabile" placeholder="Email Responsabile">
+                            <input type="text" name="note" placeholder="Note">
+                            <input type="text" name="numeropreseelettriche" placeholder="Numero prese elettriche">
+                            <input type="text" name="numeropreserete" placeholder="Numero prese di rete">
+                            <input type="text" name="idgruppo" placeholder="ID del gruppo">
+                            <input type="text" name="idposizione" placeholder="ID della posizione">
+
+                            <input class="classical-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                        </form>
+
+                    </td>
+                    <td>Bearer token</td>
+                    <td></td>
+                    <td class="output">Inserimento di un Aula</td>
+                </tr>
                 <tr>
                     <td rowspan="1">/attrezzature</td>
                     <td>GET</td>
