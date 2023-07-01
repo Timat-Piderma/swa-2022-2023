@@ -13,7 +13,7 @@ public class Evento {
     private String descrizione;
     private String nome;
     private Tipologia tipo;
-    private List<Aula> aule;
+    private Aula aula;
     private Responsabile responsabile;
 
     public Evento() {
@@ -23,7 +23,7 @@ public class Evento {
         descrizione = "";
         nome = "";
         tipo = null;
-        aule = new ArrayList<>();
+        aula = null;
         responsabile = null;
     }
 
@@ -114,15 +114,15 @@ public class Evento {
     /**
      * @return the aula
      */
-    public List<Aula> getAule() {
-        return aule;
+    public Aula getAula() {
+        return aula;
     }
 
     /**
-     * @param aule the aula to set
+     * @param aula the aula to set
      */
-    public void setAule(List<Aula> aule) {
-        this.aule = aule;
+    public void setAula(Aula aula) {
+        this.aula = aula;
     }
 
     /**

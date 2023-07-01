@@ -119,13 +119,22 @@
                 </tr>      
 
                 <tr>
-                    <td rowspan="1">/eventi</td>
+                    <td rowspan="2">/eventi</td>
                     <td>GET</td>
                     <td>idevento: [0-9]+</td>
                     <td></td>
                     <td></td>
                     <td><a data-rest-test data-rest-test-target href="rest/eventi/1"><small>GET rest/eventi/1</small></a></td>
                     <td  class="output">Informazioni di un evento</td>
+                </tr>
+
+                <tr>
+                    <td>GET</td>
+                    <td>idaula: [0-9]+/giorno: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</td>
+                    <td></td>
+                    <td></td>
+                    <td><a data-rest-test data-rest-test-target href="rest/eventi/1/2023-06-16"><small>GET rest/eventi/1/2023-06-16</small></a></td>
+                    <td class="output">Lista di Eventi di un Aula in una settimana</td>
                 </tr>
 
             </tbody>

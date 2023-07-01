@@ -16,20 +16,20 @@ import com.stdt.aulewebrest.template.model.Responsabile;
 import com.stdt.aulewebrest.template.model.Tipologia;
 
 public class EventoDeserializer extends JsonDeserializer<Evento> {
-    
+
     @Override
     public Evento deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         Evento e = new Evento();
         JsonNode node = jp.getCodec().readTree(jp);
-        
+
         if (node.has("data")) {
             e.setData(LocalDate.parse(node.get("data").asText()));
         }
-        
+
         if (node.has("oraInizio")) {
             e.setOraInizio(LocalTime.parse(node.get("oraInizio").asText()));
         }
-        
+
         if (node.has("oraFine")) {
             e.setOraFine(LocalTime.parse(node.get("oraInizio").asText()));
         }
@@ -42,19 +42,10 @@ public class EventoDeserializer extends JsonDeserializer<Evento> {
             e.setNome(node.get("nome").asText());
         }
 
-        if (node.has("id")) {
-            e.setId(node.get("id").asInt());
+        if (node.has("aula")) {
+            e.setAula(jp.getCodec().treeToValue(node.get("aula"), Aula.class));
         }
 
-        if (node.has("aule")) {
-            JsonNode ne = node.get("aule");
-            List<Aula> aule = new ArrayList<>();
-            e.setAule(aule);
-            for (int i = 0; i < ne.size(); ++i) {
-                aule.add(jp.getCodec().treeToValue(ne.get(i), Aula.class));
-            } 
-        }
-        
         if (node.has("tipo")) {
             e.setTipologia(jp.getCodec().treeToValue(node.get("tipo"), Tipologia.class));
         }
@@ -63,6 +54,6 @@ public class EventoDeserializer extends JsonDeserializer<Evento> {
             e.setResponsabile(jp.getCodec().treeToValue(node.get("responsabile"), Responsabile.class));
         }
 
-        return e;   
+        return e;
     }
 }
