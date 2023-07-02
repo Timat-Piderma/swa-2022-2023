@@ -9,7 +9,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080/aulewebREST_STDT"
+      "url": "http://localhost:8080/AuleWebREST_STDT/"
     }
   ],
   "tags": [
@@ -337,22 +337,19 @@
         }
       }
     },
-    "/rest/eventi/{idgruppo}/attachment": {
+    "/rest/eventi/{idaula}/{giorno}/attachment": {
       "get": {
-        "summary": "Esporta gli eventi relativi a un Gruppo in un determinato intervallo di tempo in formato iCalendar",
+        "summary": "Esporta gli eventi relativi a un Aula nella settimana del Giorno specificato",
         "operationId": "getAttachmentEventi",
         "tags": [
           "Eventi"
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/dateFrom"
+            "$ref": "#/components/parameters/Giorno"
           },
           {
-            "$ref": "#/components/parameters/dateTo"
-          },
-          {
-            "$ref": "#/components/parameters/IDGruppo"
+            "$ref": "#/components/parameters/IDAula"
           }
         ],
         "responses": {
@@ -365,7 +362,7 @@
           "default": {
             "description": "Lista di eventi in formato iCalendar",
             "content": {
-              "application/pdf": {
+              "application/ics": {
                 "schema": {
                   "type": "string",
                   "format": "binary"
