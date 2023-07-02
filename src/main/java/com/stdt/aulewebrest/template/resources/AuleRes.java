@@ -1,6 +1,5 @@
 package com.stdt.aulewebrest.template.resources;
 
-import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import java.net.URI;
@@ -31,7 +30,6 @@ import javax.ws.rs.core.UriInfo;
 @Path("aule")
 public class AuleRes {
 
-    @GET
     @Path("{idaula: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public AulaRes getItem(

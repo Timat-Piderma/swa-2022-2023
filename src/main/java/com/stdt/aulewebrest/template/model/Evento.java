@@ -15,6 +15,7 @@ public class Evento {
     private Tipologia tipo;
     private Aula aula;
     private Responsabile responsabile;
+    private int ID;
 
     public Evento() {
         data = null;
@@ -137,5 +138,19 @@ public class Evento {
      */
     public void setResponsabile(Responsabile responsabile) {
         this.responsabile = responsabile;
+    }
+
+    /**
+     * @return the ID
+     */
+    public int getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

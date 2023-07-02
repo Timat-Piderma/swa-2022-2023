@@ -10,10 +10,12 @@
         <h1>AuleWeb REST STDT application (JavaEE 8)</h1>
         <p>L'applicazione permette di fare:</p>
         <ul>
+            <li>1. Login/logout con username e password (per gli amministratori).</li>
             <li>3. Inserimento di una nuova aula.</li>
             <li>5. Lettura delle informazioni di base relative a un'aula.</li>
             <li>6. Lista delle attrezzature presenti in un'aula.</li>
             <li>7. Inserimento di un nuovo evento.</li>
+            <li>8. Modifica di un evento.S</li>
             <li>9. Lettura delle informazioni su un evento.</li>
             <li>10. Lista degli eventi associati a una specifica aula in una determinata settimana.</li>
             <li>11. Lista degli eventi attuali e quelli delle prossime tre ore.</li>
@@ -145,8 +147,7 @@
                     <td></td>
                     <td>
 
-                        <form data-rest-test-method="put" action="rest/eventi" enctype="application/x-www-form-urlencoded" >
-                            <input type="text" name="idevento" placeholder="ID evento da modificare">
+                        <form method="post" action="rest/eventi/1" enctype="application/x-www-form-urlencoded" >
                             <input type="text" name="giorno" placeholder="Giorno">
                             <input type="text" name="oraInizio" placeholder="Ora di inizio">
                             <input type="text" name="oraFine" placeholder="Ora di fine">

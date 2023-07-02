@@ -12,11 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +25,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -43,7 +40,6 @@ import javax.ws.rs.core.UriInfo;
 @Path("eventi")
 public class EventiRes {
 
-    @GET
     @Path("{idevento: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public EventoRes getItem(
@@ -75,6 +71,7 @@ public class EventiRes {
             evento.setOraFine(LocalTime.parse(rs.getString("oraFine")));
             evento.setDescrizione(rs.getString("descrizione"));
             evento.setTipologia(Tipologia.valueOf(rs.getString("tipologia")));
+            evento.setID(idevento);
 
         } catch (NamingException ex) {
             Logger.getLogger(EventiRes.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,67 +225,6 @@ public class EventiRes {
             pstiene.executeUpdate();
 
             return Response.created(uri).build();
-        } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-    }
-
-    @PUT
-    @Consumes("application/json")
-    public Response UpdateItem(
-            @Context ContainerRequestContext req,
-            @Context UriInfo uriinfo,
-            @FormParam("idevento") String idevento,
-            @FormParam("giorno") String giorno,
-            @FormParam("oraInizio") String oraInizio,
-            @FormParam("oraFine") String oraFine,
-            @FormParam("descrizione") String descrizione,
-            @FormParam("nome") String nome,
-            @FormParam("tipologia") String tipologia,
-            @FormParam("idaula") String idaula,
-            @FormParam("idresponsabile") String idresponsabile,
-            @FormParam("idcorso") String idcorso
-    ) throws SQLException, NamingException {
-
-        InitialContext ctx;
-        ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/progettoDB");
-        Connection conn = ds.getConnection();
-
-        PreparedStatement ps = conn.prepareStatement("UPDATE evento SET giorno=?,oraInizio=?,oraFine=?,descrizione=?, nome=?, tipologia=?, aulaID=?, responsabileID=?, corsoID=?, version=? WHERE ID=? and version=?");
-        ps.setString(1, giorno);
-        ps.setString(2, oraInizio);
-        ps.setString(3, oraFine);
-        ps.setString(4, descrizione);
-        ps.setString(5, nome);
-        ps.setString(6, tipologia);
-        ps.setString(7, idaula);
-        ps.setString(8, idresponsabile);
-        ps.setString(9, idcorso);
-
-        PreparedStatement psversion = conn.prepareStatement("select version form evento where ID=?");
-        psversion.setString(1, idevento);
-        ResultSet rsversion = psversion.executeQuery();
-        rsversion.next();
-
-        long current_version = rsversion.getInt("version");
-        long next_version = current_version + 1;
-
-        ps.setLong(10, next_version);
-        ps.setString(11, idevento);
-        ps.setLong(12, current_version);
-
-        if (ps.executeUpdate() == 1) {
-
-            ResultSet keys = ps.getGeneratedKeys();
-            keys.next();
-
-            URI uri = uriinfo.getBaseUriBuilder()
-                    .path(EventoRes.class)
-                    .path(EventoRes.class, "getItem")
-                    .build(keys.getInt(1));
-            return Response.noContent().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
