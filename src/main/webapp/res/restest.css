@@ -1,6 +1,65 @@
-body {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10pt;
+#header {
+        top:0;
+	background-color:white;
+	text-align:center;	
+	border:none;
+        width: 100%;
+        position:static; 
+        left:0;
+}
+
+#footer {
+	background-color:#fcba03;
+	text-align:center;
+	padding:0; 
+	margin:0;
+	border:none;
+}
+
+
+#body {
+	overflow:auto; /* mostra le scroll bars */
+        left:0;
+        right:0; /* si estende fino all'estrema destra */
+        background-color:white;
+        overflow:auto; /* mostra le scroll bars */
+        position:static; 
+	top:20px; /* scopre l'header */
+	bottom:30px;  /* scopre il footer */
+}
+
+#logo {
+     float: left;
+     height: 50%;
+    }
+
+#title {
+      margin-top: 30px;
+      display: inline-block;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+.topnav {
+  background-color:#fcba03;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #003399;
+  color: white;
 }
 
 .rest-test-ok {
@@ -58,4 +117,65 @@ table.restest thead tr {
     color: white;
     font-weight: bold;
     border: 2px solid black;
+}
+
+#autenticazione {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+#autenticazione td, #autenticazione th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  width: 12%;
+
+}
+
+#autenticazione tr:nth-child(even){background-color: #f2f2f2;}
+
+#autenticazione tr:hover {background-color: #ddd;}
+
+#autenticazione th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: transparent;
+  color: black;
+  width: 12%;
+ 
+} 
+#login-button {
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #003399;
+            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+#login-button:hover {
+  background-color: #fcba03;
+  color: black;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.container_log {
+  padding: 16px;
 }

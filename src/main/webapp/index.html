@@ -7,6 +7,22 @@
         <link rel="stylesheet" href="res/restest.css"/>
     </head>
     <body>
+    <div class="row" id="header">
+    
+        <div id="logo">
+            <a href="https://www.univaq.it/">
+                <image style="margin-left: 50px; width: 80px; height: 100px" title="Logo" src="  https://upload.wikimedia.org/wikipedia/it/2/2b/Logo_Universit%C3%A0_degli_Studi_dell%27Aquila.gif">
+            </a>   
+        </div>
+   
+        <div id="title">Universita' degli studi dell'Aquila</div>
+        <div id="header">
+        <div class="topnav">
+        <a href="listgruppi">Homepage</a>
+        </div>
+ </div> 
+    </div>
+        <div>
         <h1>AuleWeb REST STDT application (JavaEE 8)</h1>
         <p>L'applicazione permette di fare:</p>
         <ul>
@@ -21,6 +37,8 @@
             <li>11. Lista degli eventi attuali e quelli delle prossime tre ore.</li>
             <li>12. Esportazione di tutti gli eventi relativi a un certo intervallo di tempo.</li> 
         </ul>
+        
+        </div>
 
         <p>Le risorse RESTful, raggruppate nel prefisso /rest, solo le seguenti</p>
 
@@ -62,7 +80,7 @@
                             <input type="text" name="idgruppo" placeholder="ID del gruppo">
                             <input type="text" name="idposizione" placeholder="ID della posizione">
 
-                            <input class="classical-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
                         </form>
 
                     </td>
@@ -133,7 +151,7 @@
                             <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                             <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                            <input class="classical-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
+                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
                         </form>
 
                     </td>
@@ -158,7 +176,7 @@
                             <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                             <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                            <input class="classical-button" style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
+                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
                         </form>
 
                     </td>
@@ -174,7 +192,7 @@
         <p>To test the login/logout resource <em>(AuthenticationRes)</em>, use the login form below. <strong>Links marked with &#x1f512; on this page call
                 restful endpoints requiring a bearer token and can be clicked only after a successful login.</strong></p>
 
-        <table class="restest" width="100%">
+        <table id="autenticazione" width="100%">
             <thead>
                 <tr>
                     <th>Path</th>
@@ -212,13 +230,17 @@
                 <tr>
                     <td colspan="5">                        
                         <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
-                            <p>Username: <input style="width:30%" type="text" value="username" id="username-field" name="username-field"/> 
-                                Password: <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
+                            <div class="container_log">
+                                <label for="u"><b>Username</b></label>
+                                <input style="width:30%" type="text" value="username" id="username-field" name="username-field"/> 
+                                <label for="p"><b>Password</b></label> 
+                                <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
                                 <input type="submit" value="login" name="login-button" id="login-button"/>
-                                <input type="submit" value="logout" name="logout-button" id="logout-button"/></p>      
+                                <input type="submit" value="logout" name="logout-button" id="login-button"/>   
+                             </div>
                         </form>
                         <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
-                            <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="refresh-button" id="refresh-button"/></p>
+                            <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="login-button" id="login-button"/></p>
                         </form>
                     </td>
                 </tr>
