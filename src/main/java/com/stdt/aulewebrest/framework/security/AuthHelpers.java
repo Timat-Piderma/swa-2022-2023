@@ -42,8 +42,8 @@ public class AuthHelpers {
             ps.setString(1, username);
 
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
+                
                 Amministratore a = new Amministratore();
                 a.setUsername(rs.getString("username"));
                 a.setPassword(rs.getString("password"));

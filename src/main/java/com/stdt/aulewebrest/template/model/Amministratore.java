@@ -1,9 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.stdt.aulewebrest.template.model;
 
+/**
+ *
+ * @author mttpe
+ */
 public class Amministratore {
-
+    
     private String username;
     private String password;
+    
+    
+    public Amministratore(){
+        
+    }
 
     /**
      * @return the username
@@ -13,7 +26,7 @@ public class Amministratore {
     }
 
     /**
-     * @param username the nome to set
+     * @param username the username to set
      */
     public void setUsername(String username) {
         this.username = username;
@@ -32,4 +45,6 @@ public class Amministratore {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
 }

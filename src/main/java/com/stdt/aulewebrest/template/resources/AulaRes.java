@@ -1,5 +1,6 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import javax.ws.rs.GET;
