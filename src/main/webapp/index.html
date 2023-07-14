@@ -7,37 +7,37 @@
         <link rel="stylesheet" href="res/restest.css"/>
     </head>
     <body>
-    <div class="row" id="header">
-    
-        <div id="logo">
-            <a href="https://www.univaq.it/">
-                <image style="margin-left: 50px; width: 80px; height: 100px" title="Logo" src="  https://upload.wikimedia.org/wikipedia/it/2/2b/Logo_Universit%C3%A0_degli_Studi_dell%27Aquila.gif">
-            </a>   
+        <div class="row" id="header">
+
+            <div id="logo">
+                <a href="https://www.univaq.it/">
+                    <image style="margin-left: 50px; width: 80px; height: 100px" title="Logo" src="  https://upload.wikimedia.org/wikipedia/it/2/2b/Logo_Universit%C3%A0_degli_Studi_dell%27Aquila.gif">
+                </a>   
+            </div>
+
+            <div id="title">Universita' degli studi dell'Aquila</div>
+            <div id="header">
+                <div class="topnav">
+                    <a href="listgruppi">Homepage</a>
+                </div>
+            </div> 
         </div>
-   
-        <div id="title">Universita' degli studi dell'Aquila</div>
-        <div id="header">
-        <div class="topnav">
-        <a href="listgruppi">Homepage</a>
-        </div>
- </div> 
-    </div>
         <div>
-        <h1>AuleWeb REST STDT application (JavaEE 8)</h1>
-        <p>L'applicazione permette di fare:</p>
-        <ul>
-            <li>1. Login/logout con username e password (per gli amministratori).</li>
-            <li>3. Inserimento di una nuova aula.</li>
-            <li>5. Lettura delle informazioni di base relative a un'aula.</li>
-            <li>6. Lista delle attrezzature presenti in un'aula.</li>
-            <li>7. Inserimento di un nuovo evento.</li>
-            <li>8. Modifica di un evento.S</li>
-            <li>9. Lettura delle informazioni su un evento.</li>
-            <li>10. Lista degli eventi associati a una specifica aula in una determinata settimana.</li>
-            <li>11. Lista degli eventi attuali e quelli delle prossime tre ore.</li>
-            <li>12. Esportazione di tutti gli eventi relativi a un certo intervallo di tempo.</li> 
-        </ul>
-        
+            <h1>AuleWeb REST STDT application (JavaEE 8)</h1>
+            <p>L'applicazione permette di fare:</p>
+            <ul>
+                <li>1. Login/logout con username e password (per gli amministratori).</li>
+                <li>3. Inserimento di una nuova aula.</li>
+                <li>5. Lettura delle informazioni di base relative a un'aula.</li>
+                <li>6. Lista delle attrezzature presenti in un'aula.</li>
+                <li>7. Inserimento di un nuovo evento.</li>
+                <li>8. Modifica di un evento.S</li>
+                <li>9. Lettura delle informazioni su un evento.</li>
+                <li>10. Lista degli eventi associati a una specifica aula in una determinata settimana.</li>
+                <li>11. Lista degli eventi attuali e quelli delle prossime tre ore.</li>
+                <li>12. Esportazione di tutti gli eventi relativi a un certo intervallo di tempo.</li> 
+            </ul>
+
         </div>
 
         <p>Le risorse RESTful, raggruppate nel prefisso /rest, solo le seguenti</p>
@@ -80,7 +80,7 @@
                             <input type="text" name="idgruppo" placeholder="ID del gruppo">
                             <input type="text" name="idposizione" placeholder="ID della posizione">
 
-                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
+                            <input style="margin: 10px" type="submit" name="update" value="Aggiungi Aula"/> 
                         </form>
 
                     </td>
@@ -151,7 +151,7 @@
                             <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                             <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
+                            <input style="margin: 10px" type="submit" name="update" value="Aggiungi Evento"/> 
                         </form>
 
                     </td>
@@ -176,7 +176,7 @@
                             <input type="text" name="idresponsabile" placeholder="ID del Responsabile">
                             <input type="text" name="idcorso" placeholder="ID del Corso">
 
-                            <input id="login-button" style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
+                            <input style="margin: 10px" type="submit" name="update" value="Modifica Evento"/> 
                         </form>
 
                     </td>
@@ -236,11 +236,11 @@
                                 <label for="p"><b>Password</b></label> 
                                 <input style="width:30%" type="password" value="password" id="password-field" name="password-field"/>
                                 <input type="submit" value="login" name="login-button" id="login-button"/>
-                                <input type="submit" value="logout" name="logout-button" id="login-button"/>   
-                             </div>
+                                <input type="submit" value="logout" name="logout-button" id="logout-button"/>   
+                            </div>
                         </form>
                         <form method="post" action="rest/auth/login" enctype="application/x-www-form-urlencoded">
-                            <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="login-button" id="login-button"/></p>
+                            <p>Token: <input style="width:80%" type="text" id="token-field" name="token-field"/> <input type="submit" value="refresh" name="refresh-button" id="refresh-button"/></p>
                         </form>
                     </td>
                 </tr>
@@ -266,11 +266,11 @@
 
 
 
-               <!-- 
+
         <script src="res/restest.js">/* */</script>
         <script>
             let tester = new Restest();
-        </script>            let tester = new Restest();-->
+        </script>         
 
     </body>
 </html>

@@ -55,10 +55,12 @@ public class AttrezzatureRes {
                 l.add(rs.getString("attrezzature"));
                 
             }
+            ps.close();
             
         } catch (NamingException ex) {
             Logger.getLogger(AttrezzatureRes.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         return Response.ok(l).build();
     }

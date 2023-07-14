@@ -2,7 +2,6 @@ package com.stdt.aulewebrest.template.resources;
 
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Evento;
-import java.net.URI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,6 @@ import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -87,9 +85,10 @@ public class EventoRes {
         ps.setLong(12, current_version);
 
         if (ps.executeUpdate() == 1) {
-
+            ps.close();
             return Response.noContent().build();
         } else {
+            ps.close();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

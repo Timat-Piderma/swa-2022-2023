@@ -15,7 +15,6 @@ import com.stdt.aulewebrest.template.exceptions.JacksonExceptionMapper;
 import com.stdt.aulewebrest.template.resources.AttrezzatureRes;
 import com.stdt.aulewebrest.template.resources.AuleRes;
 import com.stdt.aulewebrest.template.resources.EventiRes;
-import com.stdt.aulewebrest.template.resources.SimpleRes;
 
 /**
  *
@@ -30,7 +29,6 @@ public class RESTApp extends Application {
         HashSet<Class<?>> c = new HashSet<Class<?>>();
         //aggiungiamo tutte le *root resurces* (cioè quelle
         //con l'annotazione Path) che vogliamo pubblicare
-        c.add(SimpleRes.class);
         c.add(AuthenticationRes.class);
         c.add(AttrezzatureRes.class);
         c.add(EventiRes.class);

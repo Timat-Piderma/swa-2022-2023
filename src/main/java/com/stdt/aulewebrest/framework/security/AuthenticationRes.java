@@ -24,9 +24,11 @@ public class AuthenticationRes {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response login(@Context UriInfo uriinfo,
             //un altro modo per ricevere e iniettare i parametri con JAX-RS...
-            @FormParam("username-field") String username,
-            @FormParam("password-field") String password) {
+            @FormParam("username") String username,
+            @FormParam("password") String password) {
         try {
+             System.out.println(username);
+              System.out.println(password);
             if (AuthHelpers.getInstance().authenticateUser(username, password)) {
                 String authToken = AuthHelpers.getInstance().issueToken(uriinfo, username);
                 //Restituiamolo in tutte le modalità, giusto per fare un esempio...

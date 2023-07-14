@@ -73,6 +73,7 @@ public class EventiRes {
             evento.setTipologia(Tipologia.valueOf(rs.getString("tipologia")));
             evento.setID(idevento);
 
+            ps.close();
         } catch (NamingException ex) {
             Logger.getLogger(EventiRes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,6 +120,7 @@ public class EventiRes {
                 result.add(evento);
 
             }
+            ps.close();
 
         } catch (NamingException ex) {
             Logger.getLogger(EventoRes.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,6 +167,7 @@ public class EventiRes {
                 result.add(evento);
 
             }
+            ps.close();
 
         } catch (NamingException ex) {
             Logger.getLogger(EventoRes.class.getName()).log(Level.SEVERE, null, ex);
@@ -224,8 +227,10 @@ public class EventiRes {
             pstiene.setString(2, keys.getString(1));
             pstiene.executeUpdate();
 
+            ps.close();
             return Response.created(uri).build();
         } else {
+            ps.close();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

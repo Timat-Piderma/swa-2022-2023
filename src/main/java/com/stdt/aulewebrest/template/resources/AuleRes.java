@@ -1,5 +1,6 @@
 package com.stdt.aulewebrest.template.resources;
 
+import com.stdt.aulewebrest.framework.security.Logged;
 import com.stdt.aulewebrest.template.exceptions.RESTWebApplicationException;
 import com.stdt.aulewebrest.template.model.Aula;
 import java.net.URI;
@@ -15,7 +16,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,6 +30,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("aule")
 public class AuleRes {
 
+    
     @Path("{idaula: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public AulaRes getItem(
@@ -62,6 +63,7 @@ public class AuleRes {
             aula.setNote(rs.getString("note"));
             aula.setNumeroPreseElettriche(rs.getInt("numeroPreseElettriche"));
 
+            ps.close();
         } catch (NamingException ex) {
             Logger.getLogger(AuleRes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,8 +109,10 @@ public class AuleRes {
                     .path(getClass())
                     .path(getClass(), "getItem")
                     .build(keys.getInt(1));
+            ps.close();
             return Response.created(uri).build();
         } else {
+            ps.close();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
